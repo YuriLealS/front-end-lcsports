@@ -9,6 +9,8 @@ import { validationSchema } from "./validate";
 import { useAuth } from "../../../../../context/useAuth";
 
 import "./card.css";
+import { api } from "../../../../../services/api/api";
+
 
 const initialValues = {
   email: "",
@@ -51,6 +53,7 @@ const Card = () => {
 
       console.log("aqui no success");
       if (data?.status === 200) {
+        api.defaults.headers.Authorization = `${sessionStorage.getItem('token')}`;
         console.log(data.data);
         loginUsuario(data.data);
         navigate("/");
@@ -73,7 +76,6 @@ const Card = () => {
   const handleSubmit = useCallback(
     (form) => {
       console.log(form);
-
       mutate({
         email: form.email,
         senha: form.senha,

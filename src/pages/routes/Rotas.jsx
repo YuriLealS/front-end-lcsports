@@ -35,6 +35,7 @@ const Rotas = () => {
           <Route path="/postagem" element={<Postagem />} />
           <Route path="/postagem/:id" element={<Postagem />} />
           <Route path="/perfil-costureira" element={<PerfilCostureira />} />
+          <Route path="/perfil-costureira/:id" element={<PerfilCostureira />} />
           <Route path="/destaques" element={<Destaques />} />
           <Route path="/vitrine" element={<Vitrine />} />
           <Route path="/vitrine/:competencia" element={<Vitrine />} />

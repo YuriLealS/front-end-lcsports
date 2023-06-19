@@ -4,7 +4,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import "./perfil.css";
+import "./favoritos.css";
 import Footer from "../components/Footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/HeaderComponent";
@@ -61,7 +61,7 @@ const Favoritos = () => {
                 {postagens.map((postagem) => {
                   const { idPostagem, imagens } = postagem;
                   const imagem =
-                    imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;
+                    imagens.length > 0 ? imagens[0].codigoImagem : {fotoPadrao};
 
                   return (
                     <SwiperSlide key={idPostagem}>

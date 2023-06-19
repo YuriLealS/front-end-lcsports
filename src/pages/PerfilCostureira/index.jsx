@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import maisverde from "../../assets/mais-verde.png"
-import wpp from "../../assets/wpp.png"
-import tel from "../../assets/telefone.png"
-import email from "../../assets/email.png"
+import imgWpp from "../../assets/wpp.png"
+import imgTel from "../../assets/telefone.png"
+import imgEmail from "../../assets/email.png"
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,7 +14,7 @@ import Footer from "../components/Footer";
 import { Link, useParams } from "react-router-dom";
 import Header from "../components/HeaderComponent";
 import NavProfile from "../components/HeaderComponent/NavTypes/NavProfile";
-import { useQuery } from "react-query";
+import { useQuery } from "react-query"; 
 import { costureiraPeloId } from "../../services/costureira/costureiraService";
 import fotoPadrao from "../../assets/foto-default.png";
 
@@ -23,16 +22,19 @@ import fotoPadrao from "../../assets/foto-default.png";
 const PerfilCostureira = () => {
   const param = useParams();
 
-  console.log(param)
-
   const { data, isLoading } = useQuery(["costureira-perfil", param?.idCostureira], () =>
     costureiraPeloId(param?.idCostureira)
   );
-  console.log(data);
 
   if (isLoading) {
-    return <div>carregando...</div>;
+    return <div>Carregando...</div>;
   }
+
+  if (!data) {
+    return <div>Costureira não encontrada</div>;
+  }
+
+  const costureira = data.data;
 
   return (
     <div className="perfil-container">
@@ -46,7 +48,8 @@ const PerfilCostureira = () => {
               <div className="image">
                 <img src={fotoPadrao} className="img-perfil" alt="" />
               </div>
-              <p className="nome-costureira">NOME</p>
+              <p className="nome-costureira">{costureira?.nome}</p>
+
             </div>
             <div className="bio-especialidades">
               <h1 className="tittle">Biografia</h1>
@@ -57,15 +60,15 @@ const PerfilCostureira = () => {
               <h1 className="tittle">Contatos</h1>
               <div className="card-cinza contato-card">
                 <div className="div-ipt">
-                    <img src={wpp} alt="" className="img-wpp"/>
+                    <img src={imgWpp} alt="" className="img-wpp"/>
                     <div className="dados-contato" id="whatsapp"></div>
                   </div>
                   <div className="div-ipt">
-                    <img src={tel} alt="" className="img-wpp"/>
+                    <img src={imgTel} alt="" className="img-wpp"/>
                     <div className="dados-contato" id="tel"></div>
                   </div>
                   <div className="div-ipt">
-                    <img src={email} alt="" className="img-wpp"/>
+                    <img src={imgEmail} alt="" className="img-wpp"/>
                     <div className="dados-contato" id="email"></div>
                   </div>
               </div>
