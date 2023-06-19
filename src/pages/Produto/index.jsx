@@ -15,27 +15,38 @@ import { useAuth } from "../../context/useAuth";
 
 const Produto = () => {
   const [imageUrl, setImageUrl] = useState("");
+  const [imagemPerfil, setImagemPerfil] = useState("");
   const [titulo, setTitulo] = useState("");
   const [description, setDescription] = useState("");
   const [like, setLike] = useState(false);
   const [curtidas, setCurtidas] = useState(0);
-  const [costureira, setCostureira] = useState(0);
+  const [costureira, setCostuteira] = useState(0);
 
   const param = useParams();
   const navigate = useNavigate();
 
   const { user } = useAuth();
 
-  const getPostagem = () => {
-    axios
+  const getPostagem = async () => {
+    await axios
       .get("http://localhost:8080/v1/postagens/" + param?.id)
       .then((response) => {
         console.log(response);
         setImageUrl(response.data.imagens[0].codigoImagem);
         setTitulo(response.data.titulo);
         setDescription(response.data.descricao);
-        setCurtidas(response.data.curtidas.length)
-        setCostureira(response.data.costureira)
+        setCurtidas(response.data.curtidas.length);
+        setCostuteira(response.data.costureira)
+        axios
+          .get("http://localhost:8080/v1/usuarios/" + response.data.costureira)
+          .then((response) => {
+            console.log(response);
+            setImagemPerfil(response.data.blob);
+            console.log(imagemPerfil)
+            console.log(imageUrl)
+          })
+          .catch((response) => console.log(response));
+
       })
       .catch((response) => console.log(response));
   };
@@ -51,7 +62,7 @@ const Produto = () => {
       .then((response) => {
         console.log(response);
         setLike(true);
-        setCurtidas(curtidas + 1) 
+        setCurtidas(curtidas + 1);
       })
       .catch((response) => console.log(response));
   };
@@ -64,7 +75,7 @@ const Produto = () => {
       .then((response) => {
         console.log(response);
         setLike(false);
-        setCurtidas(curtidas - 1) 
+        setCurtidas(curtidas - 1);
       })
       .catch((response) => console.log(response));
   };
@@ -84,7 +95,8 @@ const Produto = () => {
   };
 
   useEffect(() => {
-    Promise.all([usuarioDeuLike(), getPostagem()]);
+    usuarioDeuLike();
+    getPostagem();
   }, []);
 
   return (
@@ -95,7 +107,7 @@ const Produto = () => {
       <div className="background-produto">
         <h2 className="titulo">{titulo}</h2>
         <div className="like-kpi">
-        <div className="div-imagem-produto">
+          <div className="div-imagem-produto">
             <img
               src={imageUrl ? imageUrl : fotoPadrao}
               alt="Imagem do produto"
@@ -103,7 +115,7 @@ const Produto = () => {
             />
           </div>
           <div className="div-produto">
-          <div className="kpi">{curtidas}</div>
+            <div className="kpi">{curtidas}</div>
             {like ? (
               <img
                 src={imglikedado}
@@ -130,7 +142,7 @@ const Produto = () => {
           <div className="imagem-perfil">
             <div onClick={() => navigate("/perfil-costureira/" + costureira)}>
               <img
-                src={fotoPadrao}
+                src={imagemPerfil ? "https://lcsportsimg.blob.core.windows.net/imagens/" + imagemPerfil : fotoPadrao}
                 alt="Imagem da costureira"
                 className="ft-perfil"
               />
