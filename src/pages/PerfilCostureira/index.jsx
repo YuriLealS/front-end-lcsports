@@ -17,13 +17,15 @@ import NavProfile from "../components/HeaderComponent/NavTypes/NavProfile";
 import { useQuery } from "react-query";
 import { costureiraPeloId } from "../../services/costureira/costureiraService";
 import fotoPadrao from "../../assets/foto-default.png";
+import { useNavigate } from "react-router-dom";
+
 
 const PerfilCostureira = () => {
   const param = useParams();
+  const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery(
-    ["costureira-perfil", param?.id],
-    () => costureiraPeloId(param?.id)
+  const { data, isLoading } = useQuery(["costureira-perfil", param?.id], () =>
+    costureiraPeloId(param?.id)
   );
 
   if (isLoading) {
@@ -34,7 +36,7 @@ const PerfilCostureira = () => {
     return <div>Costureira não encontrada</div>;
   }
 
-  console.log(data)
+  console.log(data);
 
   const costureira = data.data;
 
@@ -48,7 +50,16 @@ const PerfilCostureira = () => {
           <div className="informacoes-container">
             <div className="foto-perfil">
               <div className="image">
-                <img src={costureira.blob ? "https://lcsportsimg.blob.core.windows.net/imagens/" + costureira.blob: fotoPadrao} className="img-perfil" alt="" />
+                <img
+                  src={
+                    costureira.blob
+                      ? "https://lcsportsimg.blob.core.windows.net/imagens/" +
+                        costureira.blob
+                      : fotoPadrao
+                  }
+                  className="img-perfil"
+                  alt=""
+                />
               </div>
               <p className="nome-costureira">{costureira?.nome}</p>
             </div>
@@ -61,15 +72,21 @@ const PerfilCostureira = () => {
               <div className="card-cinza contato-card">
                 <div className="div-ipt">
                   <img src={imgWpp} alt="" className="img-wpp" />
-                  <div className="dados-contato" id="whatsapp">{costureira.telefone}</div>
+                  <div className="dados-contato" id="whatsapp">
+                    {costureira.telefone}
+                  </div>
                 </div>
                 <div className="div-ipt">
                   <img src={imgTel} alt="" className="img-wpp" />
-                  <div className="dados-contato" id="tel">{costureira.telefone}</div>
+                  <div className="dados-contato" id="tel">
+                    {costureira.telefone}
+                  </div>
                 </div>
                 <div className="div-ipt">
                   <img src={imgEmail} alt="" className="img-wpp" />
-                  <div className="dados-contato" id="email">{costureira.email}</div>
+                  <div className="dados-contato" id="email">
+                    {costureira.email}
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,74 +106,21 @@ const PerfilCostureira = () => {
                 spaceBetween={30}
                 className="mySwiper"
               >
-                <div>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="image-slider-post">
-                      <a href="/produto">
-                        <img
-                          src={fotoPadrao}
-                          alt=""
-                          className="img-carrossel"
-                        />
-                      </a>
-                    </div>
-                  </SwiperSlide>
-                </div>
+                {data.data.costureira.postagens.map((postagem) => {
+                  const { idPostagem, imagens } = postagem;
+                  const imagem =
+                    imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;
+
+                  return (
+                    <SwiperSlide key={idPostagem}>
+                      <div className="image-slider-post">
+                        <div onClick={() => navigate("/produto/" + idPostagem)}>
+                          <img src={imagem} alt="" className="img-carrossel" />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>
