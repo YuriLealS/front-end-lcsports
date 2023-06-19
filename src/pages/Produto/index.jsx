@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import Header from "../components/HeaderComponent";
 import NavProfile from "../components/HeaderComponent/NavTypes/NavProfile";
 import fotoPadrao from "../../assets/foto-default.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/useAuth";
 
@@ -19,8 +19,10 @@ const Produto = () => {
   const [description, setDescription] = useState("");
   const [like, setLike] = useState(false);
   const [curtidas, setCurtidas] = useState(0);
+  const [costureira, setCostureira] = useState(0);
 
   const param = useParams();
+  const navigate = useNavigate();
 
   const { user } = useAuth();
 
@@ -33,6 +35,7 @@ const Produto = () => {
         setTitulo(response.data.titulo);
         setDescription(response.data.descricao);
         setCurtidas(response.data.curtidas.length)
+        setCostureira(response.data.costureira)
       })
       .catch((response) => console.log(response));
   };
@@ -125,13 +128,13 @@ const Produto = () => {
           </div>
           <h2 className="titulo3">Gostou? Entre em contato com:</h2>
           <div className="imagem-perfil">
-            <a href="/perfil-costureira">
+            <div onClick={() => navigate("/perfil-costureira/" + costureira)}>
               <img
                 src={fotoPadrao}
                 alt="Imagem da costureira"
                 className="ft-perfil"
               />
-            </a>
+            </div>
           </div>
         </div>
         <Footer />

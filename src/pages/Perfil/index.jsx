@@ -16,7 +16,6 @@ import { useQuery } from "react-query";
 import { costureiraPeloId } from "../../services/costureira/costureiraService";
 import fotoPadrao from "../../assets/foto-default.png";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Perfil = () => {
   const param = useParams();
@@ -43,7 +42,18 @@ const Perfil = () => {
           <div className="informacoes-container">
             <div className="foto-perfil">
               <div className="image">
-                <img src={fotoPadrao} className="img-perfil" alt="" />
+                {data.data.blob ? (
+                  <img
+                    src={
+                      "https://lcsportsimg.blob.core.windows.net/imagens/" +
+                      data.data.blob
+                    }
+                    className="img-perfil"
+                    alt=""
+                  />
+                ) : (
+                  <img src={fotoPadrao} className="img-perfil" alt="" />
+                )}
               </div>
               <p className="nome-costureira">{data.data.nome ?? ""}</p>
               <div
@@ -58,7 +68,7 @@ const Perfil = () => {
             <div className="bio-especialidades">
               <h1 className="tittle">Biografia</h1>
               <div className="card-cinza">
-                    {data.data.biografia ?? ""}
+                {data.data.biografia ?? ""}
                 <p className="text"></p>
               </div>
               <h1 className="tittle">Contatos</h1>
@@ -103,24 +113,20 @@ const Perfil = () => {
                 className="mySwiper"
               >
                 {data.data.costureira.postagens.map((postagem) => {
-                    const { idPostagem, imagens} = postagem;
-                    const imagem =
-                      imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;
+                  const { idPostagem, imagens } = postagem;
+                  const imagem =
+                    imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;
 
-                    return (
-                      <SwiperSlide key={idPostagem}>
-                        <div className="image-slider-post">
-                          <div onClick={() => navigate("/produto/" + idPostagem)}>
-                            <img
-                              src={imagem}
-                              alt=""
-                              className="img-carrossel"
-                            />
-                          </div>
+                  return (
+                    <SwiperSlide key={idPostagem}>
+                      <div className="image-slider-post">
+                        <div onClick={() => navigate("/produto/" + idPostagem)}>
+                          <img src={imagem} alt="" className="img-carrossel" />
                         </div>
-                      </SwiperSlide>
-                    );
-                  })}
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             </div>
           </div>

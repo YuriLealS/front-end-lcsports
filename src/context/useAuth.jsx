@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
 
     sessionStorage.setItem('usuario', JSON.stringify(userData));
+    sessionStorage.setItem('token', JSON.stringify(userData.token));
+    // api.defaults.headers.Authorization = `Bearer ${sessionStorage.getItem('token')}`;
   }
 
   function logoutUsuario() {
