@@ -5,9 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./perfil.css";
-import Footer from "../components/Footer";
+import Footer2 from "../components/FooterFixo";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../components/HeaderComponent";
+import Header2 from "../components/HeaderComponent";
 import NavProfile from "../components/HeaderComponent/NavTypes/NavProfile";
 import { useQuery } from "react-query";
 import { costureiraPeloId } from "../../services/costureira/costureiraService";
@@ -38,9 +38,9 @@ const Vitrine = () => {
 
   return (
     <div className="perfil-container">
-      <Header>
+      <Header2>
         <NavProfile />
-      </Header>
+      </Header2>
       <div className="favoritos-section">
         <div className="container">
           <div className="favoritos-container">
@@ -77,7 +77,7 @@ const Vitrine = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer2 />
     </div>
   );
 };
