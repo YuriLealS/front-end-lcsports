@@ -38,7 +38,7 @@ const PerfilCostureira = () => {
 
   console.log(data);
 
-  const costureira = data.data;
+  const costureira = data;
 
   return (
     <div className="perfil-container">
@@ -106,7 +106,7 @@ const PerfilCostureira = () => {
                 spaceBetween={30}
                 className="mySwiper"
               >
-                {data.data.costureira.postagens.map((postagem) => {
+                {data.costureira.postagens.map((postagem) => {
                   const { idPostagem, imagens } = postagem;
                   const imagem =
                     imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;

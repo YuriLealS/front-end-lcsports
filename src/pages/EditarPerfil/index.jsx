@@ -22,8 +22,8 @@ const EditarPerfil = () => {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery(
-    ["costureira-perfil", param?.idCostureira],
-    () => costureiraPeloId(param?.idCostureira)
+    ["costureira-perfil", param?.id],
+    () => costureiraPeloId(param?.id)
   );
 
   const [image, setImage] = useState(null);
@@ -34,10 +34,10 @@ const EditarPerfil = () => {
     setImage(URL.createObjectURL(selectedImage));
   };
 
-  const [email, setEmail] = useState(data.data.email);
-  const [telefone, setTelefone] = useState(data.data.telefone);
-  const [biografia, setBiografia] = useState(data.data.biografia);
-  const [imagem, setImagem] = useState(data.data.imagem);
+  const [email, setEmail] = useState(data.email);
+  const [telefone, setTelefone] = useState(data.telefone);
+  const [biografia, setBiografia] = useState(data.biografia);
+  const [imagem, setImagem] = useState(data.imagem);
 
   const api = axios.create({
     baseURL: "http://localhost:8080",
@@ -49,11 +49,11 @@ const EditarPerfil = () => {
     const imageFile = document.getElementById("image-upload").files[0];
 
     const usuario = {
-      idUsuario: data.data.idUsuario,
+      idUsuario: data.idUsuario,
       email: email,
       telefone: telefone,
       biografia: biografia,
-      imagem: data.data.imagem,
+      imagem: data.imagem,
     };
 
     console.log(data);
@@ -85,7 +85,7 @@ const EditarPerfil = () => {
           };
 
           updateSessionStorageValue("data", "email", email);
-          navigate("/perfil/" + param?.idCostureira);
+          navigate("/perfil/" + param?.id);
         }, 2000);
       } else {
       }

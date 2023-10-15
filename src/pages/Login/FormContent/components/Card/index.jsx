@@ -54,8 +54,8 @@ const Card = () => {
       console.log("aqui no success");
       if (data?.status === 200) {
         api.defaults.headers.Authorization = `${sessionStorage.getItem('token')}`;
-        console.log(data.data);
-        loginUsuario(data.data);
+        console.log(data);
+        loginUsuario(data);
         navigate("/");
       }else {
         setErrorMessage("Usuário ou senha inválidos");

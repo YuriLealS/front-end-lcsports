@@ -19,8 +19,8 @@ const Destaques = () => {
 
   console.log(param)
 
-  const { data, isLoading } = useQuery(["costureira-perfil", param?.idCostureira], () =>
-    costureiraPeloId(param?.idCostureira)
+  const { data, isLoading } = useQuery(["costureira-perfil", param?.id], () =>
+    costureiraPeloId(param?.id)
   );
   console.log(data);
 

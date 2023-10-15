@@ -22,8 +22,8 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   const { data, isLoading } = useQuery(
-    ["costureira-perfil", param?.idCostureira],
-    () => costureiraPeloId(param?.idCostureira)
+    ["costureira-perfil", param?.id],
+    () => costureiraPeloId(param?.id)
   );
 
   if (isLoading) {
@@ -42,11 +42,11 @@ const Perfil = () => {
           <div className="informacoes-container">
             <div className="foto-perfil">
               <div className="image">
-                {data.data.blob ? (
+                {data.blob ? (
                   <img
                     src={
                       "https://lcsportsimg.blob.core.windows.net/imagens/" +
-                      data.data.blob
+                      data.blob
                     }
                     className="img-perfil"
                     alt=""
@@ -55,11 +55,11 @@ const Perfil = () => {
                   <img src={fotoPadrao} className="img-perfil" alt="" />
                 )}
               </div>
-              <p className="nome-costureira">{data.data.nome ?? ""}</p>
+              <p className="nome-costureira">{data.nome ?? ""}</p>
               <div
                 className="btn-editar-perfil"
                 onClick={() =>
-                  navigate("/editar-perfil/" + param?.idCostureira)
+                  navigate("/editar-perfil/" + param?.id)
                 }
               >
                 <h1 className="tittle">Editar Perfil</h1>
@@ -68,7 +68,7 @@ const Perfil = () => {
             <div className="bio-especialidades">
               <h1 className="tittle">Biografia</h1>
               <div className="card-cinza">
-                {data.data.biografia ?? ""}
+                {data.biografia ?? ""}
                 <p className="text"></p>
               </div>
               <h1 className="tittle">Contatos</h1>
@@ -76,19 +76,19 @@ const Perfil = () => {
                 <div className="div-ipt">
                   <img src={wpp} alt="" className="img-wpp" />
                   <div className="dados-contato" id="whatsapp">
-                    {data.data.telefone ?? ""}
+                    {data.telefone ?? ""}
                   </div>
                 </div>
                 <div className="div-ipt">
                   <img src={tel} alt="" className="img-wpp" />
                   <div className="dados-contato" id="tel">
-                    {data.data.telefone ?? ""}
+                    {data.telefone ?? ""}
                   </div>
                 </div>
                 <div className="div-ipt">
                   <img src={email} alt="" className="img-wpp" />
                   <div className="dados-contato" id="email">
-                    {data.data.email ?? ""}
+                    {data.email ?? ""}
                   </div>
                 </div>
               </div>
@@ -98,7 +98,7 @@ const Perfil = () => {
           <div className="div-minhas-postagens">
             <div className="titulo-maisverde">
               <h1 className="tittle-posts">Minhas postagens</h1>
-              <div onClick={() => navigate("/postagem/" + param?.idCostureira)}>
+              <div onClick={() => navigate("/postagem/" + param?.id)}>
                 <img src={maisverde} alt="" className="mais-verde" />
               </div>
             </div>
@@ -112,7 +112,7 @@ const Perfil = () => {
                 spaceBetween={30}
                 className="mySwiper"
               >
-                {data.data.costureira.postagens.map((postagem) => {
+                {/* {data.costureira.postagens.map((postagem) => {
                   const { idPostagem, imagens } = postagem;
                   const imagem =
                     imagens.length > 0 ? imagens[0].codigoImagem : fotoPadrao;
@@ -126,7 +126,7 @@ const Perfil = () => {
                       </div>
                     </SwiperSlide>
                   );
-                })}
+                })} */}
               </Swiper>
             </div>
           </div>

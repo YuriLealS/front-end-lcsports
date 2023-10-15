@@ -25,11 +25,11 @@ const Rotas = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/perfil/:idCostureira" element={<Perfil />} />
+          <Route path="/perfil/:id" element={<Perfil />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/produto" element={<Produto />} />
           <Route path="/produto/:id" element={<Produto />} />
-          <Route path="/editar-perfil/:idCostureira" element={<EditarPerfil />} />
+          <Route path="/editar-perfil/:id" element={<EditarPerfil />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/favoritos/:id" element={<Favoritos />} />
           <Route path="/postagem" element={<Postagem />} />
